@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: actions-runner
+  namespace: semits-system
+spec:
+  selector:
+    matchLabels:
+      app: actions-runner
+  template:
+    metadata:
+      labels:
+        app: registry
+    spec:
+      containers:
+        - name: runner
+          image: semits/runner:1.0.0
+          resources:
+            limits:
+              memory: "2048Mi"
+              cpu: "2000m"
+          env:
+            - name: GITHUB_OWNER
+              value: ""
+            - name:  GITHUB_TOKEN
+              value: ""
+            - name: GITHUB_RUNNER_NAME
+              value: ""
