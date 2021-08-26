@@ -10,6 +10,6 @@
 ```sh
 docker run --name runner -e GITHUB_OWNER=name \
 -e GITHUB_TOKEN=token \
--e GITHUB_RUNNER_NAME=ubuntu18.04
 runner
 ```
+
