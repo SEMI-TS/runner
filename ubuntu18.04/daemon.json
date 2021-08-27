@@ -1,0 +1,4 @@
+{
+    "insecure-registries": ["192.168.0.110:5200"],
+    "registry-mirrors": ["http://192.168.0.110:5200"]
+}
