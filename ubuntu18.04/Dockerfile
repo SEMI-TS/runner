@@ -27,9 +27,9 @@ WORKDIR /home/semits
 COPY entrypoint.sh ./entrypoint.sh
 RUN chmod u+x ./entrypoint.sh
 
-RUN curl -o actions-runner-linux-x64-2.279.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.279.0/actions-runner-linux-x64-2.279.0.tar.gz
-RUN echo "50d21db4831afe4998332113b9facc3a31188f2d0c7ed258abf6a0b67674413a  actions-runner-linux-x64-2.279.0.tar.gz" | shasum -a 256 -c
-RUN tar xzf ./actions-runner-linux-x64-2.279.0.tar.gz
+RUN curl -o actions-runner-linux-x64-2.280.3.tar.gz -L https://github.com/actions/runner/releases/download/v2.280.3/actions-runner-linux-x64-2.280.3.tar.gz
+RUN echo "69dc323312e3c5547ba1e1cc46c127e2ca8ee7d7037e17ee6965ef6dac3c142b  actions-runner-linux-x64-2.280.3.tar.gz" | shasum -a 256 -c
+RUN tar xzf ./actions-runner-linux-x64-2.280.3.tar.gz
 
 RUN sudo ./bin/installdependencies.sh
 
@@ -38,7 +38,8 @@ RUN echo \
   "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-RUN apt-get update 
+RUN apt-get update
+RUN apt-get install -y systemd
 RUN apt-get install -y docker-ce docker-ce-cli containerd.io
 
 RUN apt-get clean \
