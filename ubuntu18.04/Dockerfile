@@ -2,7 +2,6 @@ FROM ubuntu:18.04
 ENV RUNNER_ALLOW_RUNASROOT="1"
 ENV GITHUB_TOKEN ""
 ENV GITHUB_OWNER ""
-ENV GITHUB_RUNNER_NAME ""
 
 RUN apt-get update \
     && apt-get install -y \
@@ -39,17 +38,17 @@ RUN echo \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 RUN apt-get update
-RUN apt-get install -y systemd
-RUN apt-get install -y docker-ce docker-ce-cli containerd.io
+RUN apt-get install -y docker-ce-cli
 
 RUN apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-
-COPY daemon.json /etc/docker/
 
 WORKDIR /home/semits/repository/external
 RUN curl -o boost_1_73_0.tar.gz  -L https://boostorg.jfrog.io/artifactory/main/release/1.73.0/source/boost_1_73_0.tar.gz
 RUN tar xzf ./boost_1_73_0.tar.gz
 WORKDIR /home/semits/
+
+RUN groupadd -g 994 docker
+RUN usermod -aG docker root 
 
 ENTRYPOINT ["./entrypoint.sh"]

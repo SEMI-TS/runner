@@ -15,14 +15,15 @@ spec:
       containers:
         - name: runner
           image: semits/runner:2.80.3
-          resources:
-            limits:
-              memory: "2048Mi"
-              cpu: "2000m"
           env:
             - name: GITHUB_OWNER
               value: ""
             - name:  GITHUB_TOKEN
               value: ""
-            - name: GITHUB_RUNNER_NAME
-              value: ""
+          volumeMounts:
+            - name: docker-sock
+              mountPath: /var/run/docker.sock
+      volumes:
+      - name: docker-sock
+        hostPath:
+          path: /var/run/docker.sock
