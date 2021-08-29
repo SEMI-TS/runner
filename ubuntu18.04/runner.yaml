@@ -10,11 +10,11 @@ spec:
   template:
     metadata:
       labels:
-        app: registry
+        app: actions-runner
     spec:
       containers:
         - name: runner
-          image: semits/runner:1.0.0
+          image: semits/runner:2.80.3
           resources:
             limits:
               memory: "2048Mi"
