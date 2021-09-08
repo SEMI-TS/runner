@@ -26,9 +26,9 @@ WORKDIR /home/semits
 COPY entrypoint.sh ./entrypoint.sh
 RUN chmod u+x ./entrypoint.sh
 
-RUN curl -o actions-runner-linux-x64-2.280.3.tar.gz -L https://github.com/actions/runner/releases/download/v2.280.3/actions-runner-linux-x64-2.280.3.tar.gz
-RUN echo "69dc323312e3c5547ba1e1cc46c127e2ca8ee7d7037e17ee6965ef6dac3c142b  actions-runner-linux-x64-2.280.3.tar.gz" | shasum -a 256 -c
-RUN tar xzf ./actions-runner-linux-x64-2.280.3.tar.gz
+RUN curl -o actions-runner-linux-x64-2.281.1.tar.gz -L https://github.com/actions/runner/releases/download/v2.281.1/actions-runner-linux-x64-2.281.1.tar.gz
+RUN echo "04f6c17235d4b29fc1392d5fae63919a96e7d903d67790f81cffdd69c58cb563  actions-runner-linux-x64-2.281.1.tar.gz" | shasum -a 256 -c
+RUN tar xzf ./actions-runner-linux-x64-2.281.1.tar.gz
 
 RUN sudo ./bin/installdependencies.sh
 
