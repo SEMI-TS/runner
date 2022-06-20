@@ -5,6 +5,8 @@ metadata:
 spec:
   template:
     spec:
+      labels:
+        - deployment-runner
       organization: SEMI-TS
       image: semits/runner:latest
       imagePullPolicy: Always
@@ -22,13 +24,6 @@ spec:
           tolerationSeconds: 10
       nodeSelector:
         cpu: "8core"
-      #volumes:
-      #  - name: docker-sock
-      #    hostPath:
-      #      path: /var/run/docker.sock
-      #volumeMounts:
-      #  - mountPath: /var/run/docker.sock
-      #    name: docker-sock
 ---
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: HorizontalRunnerAutoscaler
