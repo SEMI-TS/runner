@@ -58,7 +58,7 @@ RUN rm -rf ./boost_1_73_0.tar.gz
 
 WORKDIR /home/semits/boost_1_73_0
 RUN ./bootstrap.sh
-RUN ./b2 install
+RUN ./b2 headers
 RUN rm -rf ./home/semits/boost_1_73_0/
 # arch command on OS X reports "i386" for Intel CPUs regardless of bitness
 RUN export ARCH=$(echo ${TARGETPLATFORM} | cut -d / -f2) \
