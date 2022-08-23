@@ -1,15 +1,15 @@
 FROM ubuntu:20.04
 
 ARG TARGETPLATFORM
-ARG RUNNER_VERSION=2.295.0
+ARG RUNNER_VERSION=2.293.0
 ARG DOCKER_CHANNEL=stable
 ARG DOCKER_VERSION=20.10.12
 ARG DUMB_INIT_VERSION=1.2.5
 
 RUN test -n "$TARGETPLATFORM" || (echo "TARGETPLATFORM must be set" && false)
-ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update \
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt update -y \
     && apt-get install -y software-properties-common \
     && add-apt-repository -y ppa:git-core/ppa \
     && apt-get update -y \
@@ -40,26 +40,10 @@ RUN apt-get update \
     wget \
     zip \
     zstd \
-    tar \
-    make \
-    g++ \
-    gcc-arm-linux-gnueabihf \
-    g++-arm-linux-gnueabihf \
-    g++-7 \
-    cmake \
     && ln -sf /usr/bin/python3 /usr/bin/python \
     && ln -sf /usr/bin/pip3 /usr/bin/pip \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /home/semits/
-RUN curl -o boost_1_73_0.tar.gz  -L https://boostorg.jfrog.io/artifactory/main/release/1.73.0/source/boost_1_73_0.tar.gz
-RUN tar xzf ./boost_1_73_0.tar.gz
-RUN rm -rf ./boost_1_73_0.tar.gz
-
-WORKDIR /home/semits/boost_1_73_0
-RUN ./bootstrap.sh
-RUN ./b2 install
-RUN rm -rf ./home/semits/boost_1_73_0/
 # arch command on OS X reports "i386" for Intel CPUs regardless of bitness
 RUN export ARCH=$(echo ${TARGETPLATFORM} | cut -d / -f2) \
     && if [ "$ARCH" = "arm64" ]; then export ARCH=aarch64 ; fi \
@@ -138,6 +122,5 @@ RUN echo "PATH=${PATH}" > /etc/environment \
     && echo "ImageOS=${ImageOS}" >> /etc/environment
 
 USER runner
-
 ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
 CMD ["entrypoint.sh"]
